@@ -1,0 +1,17 @@
+<!-- blog/templates/blog/search_results.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Search Results</h2>
+    {% if query %}
+        <p>Search results for '{{ query }}':</p>
+        {% for post in posts %}
+            <div>
+                <h3>{{ post.title }}</h3>
+                <p>{{ post.content }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>Please enter a search query.</p>
+    {% endif %}
+{% endblock %}

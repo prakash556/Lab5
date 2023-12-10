@@ -1,0 +1,33 @@
+<!-- blog/templates/blog/profile.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Blog{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/styles.css' %}">
+</head>
+<body>
+
+<div class="menu">
+    <ul>
+        <li><a href="{% url 'blog:home' %}">Home</a></li>
+        <li><a href="{% url 'blog:post_create' %}">Create Post</a></li>
+        <li><a href="{% url 'blog:post_list' %}">Start Reading</a></li>
+        <li><a href="{% url 'blog:logout' %}">Logout</a></li>
+        <li><a href="{% url 'blog:profile' %}">Profile</a></li>
+    </ul>
+</div>
+
+{% block content %}
+    <h2>Welcome, {{ user.username }}!</h2>
+    <!-- Add more content or user-related information here -->
+{% endblock %}
+</body>
+</html>
+

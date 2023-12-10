@@ -1,0 +1,41 @@
+<!-- myblog/templates/base.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Blog{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/styles.css' %}">
+</head>
+<body>
+
+    <div class="menu">
+        <ul>
+            <li><a href="{% url 'blog:post_list' %}">Home</a></li>
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'blog:post_create' %}">Create Post</a></li>
+                <li><a href="{% url 'blog:logout' %}">Logout</a></li>
+                <li><a href="{% url 'blog:profile' %}">Profile</a></li>
+                
+            {% endif %}
+            <li>
+                <form method="get" action="{% url 'blog:search_results' %}">
+                    <input type="text" placeholder="Search" name="query">
+                </form>
+            </li>
+        </ul>
+    </div>
+
+    <div id="main-content">
+        <h1><a href="{% url 'blog:post_list' %}">My Blog</a></h1>
+        {% block content %}{% endblock %}
+        {% if request.user.is_authenticated %}
+        {% if post.author == request.user %}
+            <p><a href="{% url 'blog:post_update' pk=post.pk %}">Update Post</a></p>
+            <p><a href="{% url 'blog:post_delete' pk=post.pk %}">Delete Post</a></p>
+        {% endif %}
+    {% endif %}
+    </div>
+</body>
+</html>

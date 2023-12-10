@@ -1,0 +1,63 @@
+<!-- blog/templates/blog/post_detail.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Blog{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/styles.css' %}">
+</head>
+<body>
+
+{% block content %}
+  <h2>{{ post.title }}</h2>
+  <p>{{ post.content }}</p>
+  <p>Author: {{ post.author.username }}</p>
+  <p>Created at: {{ post.created_at }}</p>
+  <p>Updated at: {{ post.updated_at }}</p>
+
+  <!-- Display Comments -->
+  <div id="comments-section">
+    <h3>Comments:</h3>
+    {% for comment in comments %}
+      <p>{{ comment.text }}</p>
+      <p>By: {{ comment.user.username }}</p>
+      <hr>
+    {% endfor %}
+  </div>
+  
+  <!-- Add Comment Form -->
+  {% if user.is_authenticated %}
+    <form id="add-comment-form" method="post" action="{% url 'blog:add_comment' pk=post.pk %}">
+      {% csrf_token %}
+      <label for="comment-text">Add a Comment:</label>
+      <textarea name="text" id="comment-text" rows="4" required></textarea>
+      <button type="submit">Post Comment</button>
+    </form>
+  {% else %}
+    <p>Login to add comments.</p>
+  {% endif %}
+
+  <!-- Add Share Button -->
+  <button id="share-button" data-post-id="{{ post.pk }}">Share</button>
+  <!-- Add this script at the end of the post_detail.html template -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+      const shareButton = document.getElementById('share-button');
+      shareButton.addEventListener('click', function () {
+          const postId = shareButton.getAttribute('data-post-id');
+          // Open a modal or display a dropdown with sharing options using JavaScript
+          // You can use a library like Bootstrap for modals or create a custom solution
+          // Here, I'll show a simple alert for demonstration purposes
+          alert('Display sharing options for post ' + postId);
+      });
+  });
+  </script>
+  
+
+{% endblock %}
+</body>
+</html>

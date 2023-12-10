@@ -1,0 +1,14 @@
+<!-- blog/templates/blog/home.html -->
+{% extends 'blog/base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <div class="home-container">
+        <h2>Stay curious.</h2>
+        <p>Discover stories, thinking, and expertise from writers on any topic.</p>
+        <p><a href="{% url 'blog:post_list' %}">Start Reading</a></p>
+    </div>
+{% endblock %}
+
+

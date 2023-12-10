@@ -1,0 +1,32 @@
+<!-- templates/blog/login.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Blog{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/styles.css' %}">
+</head>
+<body>
+    <div class="menu">
+        <ul>
+            <li><a href="{% url 'blog:home' %}">Home</a></li>
+            <li><a href="{% url 'blog:login' %}">Create Post</a></li>
+            <li><a href="{% url 'blog:login' %}">Start Reading</a></li>
+            <li><a href="{% url 'blog:login' %}">Sign In</a></li>
+            <li><a href="{% url 'blog:profile' %}">Profile</a></li>
+        </ul>
+    </div>
+    <h2>Login</h2>
+    <div class="form-container">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Login</button>
+        </form>
+    </div>
+    
+    <p>New user? <a href="{% url 'blog:register' %}">Register here</a></p>
+</body>
+</html>
